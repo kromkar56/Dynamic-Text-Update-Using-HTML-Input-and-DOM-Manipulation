@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOM Text Updater</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    font-family:system-ui,-apple-system,Segoe UI,sans-serif;
+}
+
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:radial-gradient(circle at top left,rgb(0, 245, 255),rgb(15, 32, 39),rgb(0, 0, 0));
+}
+
+main{
+    width:420px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(14px);
+    padding:28px;
+    border-radius:20px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.45);
+    border:1px solid rgba(255,255,255,0.15);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:18px;
+    font-weight:600;
+    letter-spacing:1px;
+    color:#eafcff;
+}
+
+#outputText{
+    background:rgba(0,245,255,0.12);
+    color:rgb(234, 255, 255);
+    padding:14px;
+    border-radius:12px;
+    min-height:48px;
+    margin-bottom:18px;
+    text-align:center;
+    font-size:16px;
+}
+
+.form-row{
+    display:flex;
+    gap:12px;
+}
+
+input{
+    flex:1;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.25);
+    background:rgba(255,255,255,0.1);
+    color:rgb(255, 255, 255);
+    font-size:15px;
+}
+
+input::placeholder{
+    color:rgb(204, 236, 255);
+}
+
+input:focus{
+    outline:none;
+    border-color:#00f5ff;
+    box-shadow:0 0 0 2px rgba(0,245,255,0.25);
+}
+
+button{
+    padding:14px 20px;
+    border-radius:12px;
+    border:none;
+    background:linear-gradient(135deg,rgb(0, 245, 255),rgb(0, 198, 255));
+    color:#002b36;
+    font-weight:600;
+    cursor:pointer;
+    font-size:15px;
+    transition:transform .2s, box-shadow .2s, opacity .2s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(0,245,255,0.45);
+    opacity:0.95;
+}
+
+button:active{
+    transform:translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<main>
+    <h1>Live Text Update</h1>
+
+    <p id="outputText">Type something and press Enter</p>
+
+    <div class="form-row">
+        <input type="text" id="userInput" placeholder="Enter text here">
+        <button id="updateBtn">Send</button>
+    </div>
+</main>
+
+<script>
+const input = document.getElementById("userInput");
+const output = document.getElementById("outputText");
+const button = document.getElementById("updateBtn");
+
+function submitText(){
+    const text = input.value.trim();
+    if(!text) return;
+
+    output.textContent = text;
+    input.value = "";
+}
+
+button.addEventListener("click", submitText);
+
+input.addEventListener("keydown", e => {
+    if(e.key === "Enter") submitText();
+});
+</script>
+
+</body>
+</html>
